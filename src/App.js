@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import './App.css';
 import Header from './Components/Header.js';
 import SubHeader from './Components/SubHeader.js';
 import ItemList from './Components/ItemList.js';

@@ -25,7 +25,7 @@ class Item extends Component{
       addToCartName="ADD TO CART";
     }
     return (
-      <li className="item" id={itemDetails.productID}>
+      <li className="item" id={itemDetails.productID} onClick={this.onClick}>
         <img src={itemDetails.imgSrc} width="200px" height="150px" />
           <a href="mobile.html"><span className="productname">{itemDetails.productName}</span></a>
           <span className="brandname">{itemDetails.brandName}</span>

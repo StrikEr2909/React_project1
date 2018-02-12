@@ -491,7 +491,7 @@ body {
     position: relative;
     top: 80px;
     height: 800px;;
-    box-shadow: 7px 7px 12px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 5px 5px 8px 0px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
 }
@@ -519,7 +519,7 @@ body {
     position: sticky;
     top: 112px;
     height: 250px;
-    box-shadow: 7px 7px 12px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 5px 5px 8px 0px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
 }
@@ -595,7 +595,8 @@ body {
     margin-left: 7px;
     overflow-x: hidden;
 }
-
+/*style="font-size:15px; z-index: 1 ; color: white"*/
+/*style="font-size:24px"*/
 .cartitem {
     min-height: 200px;
     display: inline-block;
