@@ -5,8 +5,8 @@ class SubHeader extends Component{
   render(){
     return (
       <Fragment>
-      <Categorybar filterCategory={this.props.showFilteredItems} />
-      <Filterbar selectedCategory={this.props.selectedCategory} removeCategory={this.props.removeCategory}/>
+        <Categorybar filterCategory={this.props.showFilteredItems} />
+        <Filterbar selectedCategory={this.props.selectedCategory} removeCategory={this.props.removeCategory}/>
       </Fragment>
     );
   }

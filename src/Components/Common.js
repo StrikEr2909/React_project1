@@ -6,9 +6,14 @@ class Arrows extends Component{
   }
 }
 class Button extends Component{
+  addToCart=()=>{
+    if(this.props.id!==undefined){
+      this.props.addToCart(this.props.id);
+    }
+  }
   render(){
     return(
-      <button className={this.props.className}> {this.props.name} {this.props.icon}</button>
+      <button className={this.props.className} onClick={this.addToCart}> {this.props.name} {this.props.icon}</button>
     )
   }
 }

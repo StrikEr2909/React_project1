@@ -23,7 +23,6 @@ class PriceDetailsHeader extends Component{
 }
 class PriceDetailsBody extends Component{
   render(){
-    console.log(this.props);
     return (
       <div className="pricebody">
         <div className="price-detail-tag">

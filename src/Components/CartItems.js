@@ -1,42 +1,11 @@
 import React, { Component , Fragment} from 'react';
 class CartItems extends Component{
-  handleItemChange=(event)=>{
-    if(event.target.className==='increase'){
-      const currentQuantity=Number(event.target.previousElementSibling.innerHTML);
-      event.target.previousElementSibling.previousElementSibling.className='decrease';
-      if(currentQuantity>=10){
-        return;
-      }
-      const selectedProductId=event.target.closest('.cartitem').id;
-      this.props.handleItemChange(selectedProductId,currentQuantity+1);
-      if(currentQuantity>=9){
-        event.target.className='disabled';
-      }
-    }
-    else if(event.target.className==='decrease'){
-      const currentQuantity=Number(event.target.nextElementSibling.innerHTML);
-      event.target.nextElementSibling.nextElementSibling.className='increase';
-      if(currentQuantity<=0){
-        return;
-      }
-      const selectedProductId=event.target.closest('.cartitem').id;
-      this.props.handleItemChange(selectedProductId,currentQuantity-1);
-      if(currentQuantity<=1){
-        event.target.className='disabled';
-      }
-    }
-    else if(event.target.className==='remove' || event.target.id==='delete-icon'){
-      const itemTobeRemoved=event.target.closest('.cartitem');
-      const productId=itemTobeRemoved.id;
-      this.props.removeItem(productId);
-      }
-    else{
-      return;
-    }
-}
+  removeHandler=(event,index)=>{
+    this.props.removeItem(index);
+  }
   render(){
     const cartItemList=this.props.cartItemList;
-    let itemElementList=[];
+    const itemElementList=[];
     let itemDetailsObject={};
     let itemElement=null;
     for(let key in cartItemList){
@@ -44,7 +13,7 @@ class CartItems extends Component{
         itemDetailsObject=JSON.parse(cartItemList[key]);
         itemElement=(<li key={itemDetailsObject.productId} className="cartitem" id={itemDetailsObject.productId}>
             <ItemDetails itemDetails={itemDetailsObject}/>
-            <ItemQuantity quantity={itemDetailsObject.quantity}/>
+            <ItemQuantity index={key} removeHandler={this.removeHandler} handleItemChange={this.props.handleItemChange} quantity={itemDetailsObject.quantity}/>
             <DeliveryDetails />
         </li>)
         itemElementList.push(itemElement);
@@ -71,27 +40,69 @@ class ItemDetails extends Component{
     }
 }
 class ItemQuantity extends Component{
-  render(){
-    let increaseClass='disabled',decreaseClass='disabled';
-    if(this.props.quantity<10){
+  constructor(props){
+    super(props);
+    let increaseClass='disabled',decreaseClass='disabled'
+    if(props.quantity<10){
       increaseClass='increase';
     }
-    if(this.props.quantity>0){
+    if(props.quantity>0){
       decreaseClass='decrease';
     }
+    this.state={
+      increaseClass: increaseClass,
+      decreaseClass: decreaseClass
+    }
+}
+  removeHandler=(event)=>{
+    this.props.removeHandler(event,this.props.index);
+}
+  increaseHandler=(event)=> {
+    this.setState({
+      decreaseClass:'decrease'
+    })
+    const currentQuantity=Number(event.target.previousElementSibling.innerHTML);
+    if(currentQuantity>=10){
+      return;
+    }
+    const selectedProductId=event.target.closest('.cartitem').id;
+    this.props.handleItemChange(selectedProductId,currentQuantity+1);
+    if(currentQuantity>=9){
+      this.setState({
+        increaseClass:'disabled'
+      });
+    }
+  }
+  decreaseHandler=(event)=>{
+    this.setState({
+      increaseClass:'increase'
+    })
+    const currentQuantity=Number(event.target.nextElementSibling.innerHTML);
+    if(currentQuantity<=0){
+      return;
+    }
+    const selectedProductId=event.target.closest('.cartitem').id;
+    this.props.handleItemChange(selectedProductId,currentQuantity-1);
+    if(currentQuantity<=1){
+      this.setState({
+        decreaseClass:'disabled'
+      });
+    }
+  }
+  render(){
     return(
       <div className="quantity">
         <p className="quantityname">Quantity:</p>
-        <button className={decreaseClass}>
+        <button className={this.state.decreaseClass} onClick={this.decreaseHandler}>
           -
         </button>
         <div className="itemquantity">
           {this.props.quantity}
         </div>
-        <button className={increaseClass}>
+        <button className={this.state.increaseClass} onClick={this.increaseHandler}>
           +
         </button>
-        <button className="remove">
+        <button onClick={this.removeHandler} className="remove">
           <i className="material-icons" id="delete-icon">delete</i>
         </button>
       </div>

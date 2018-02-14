@@ -14,7 +14,7 @@ class Cart extends Component{
   calculateTotal=()=>{
     let itemObject=null;
     let totalValue=0;
-    let localStorage=window.localStorage;
+    const localStorage=window.localStorage;
     for(let key in localStorage){
       if(localStorage.hasOwnProperty(key)){
         itemObject=JSON.parse(localStorage[key]);
@@ -24,7 +24,7 @@ class Cart extends Component{
     return totalValue;
   }
   handleItemChange=(productId,newQuantity)=>{
-    let localStorage=this.state.itemsInCart;
+    const localStorage=this.state.itemsInCart;
     let itemObject=JSON.parse(localStorage[productId]);
     itemObject.quantity=newQuantity;
     localStorage[productId]=JSON.stringify(itemObject);
@@ -33,7 +33,7 @@ class Cart extends Component{
     });
   }
   removeItem=(productId)=>{
-    let localStorage=this.state.itemsInCart;
+    const localStorage=this.state.itemsInCart;
     localStorage.removeItem(productId);
     this.calculateTotal();
     this.setState({

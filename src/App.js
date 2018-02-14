@@ -114,9 +114,8 @@ class App extends Component{
     this.myLocalStorage=model.myLocalStorage;
     this.itemsInCart=model.itemsInCart;
   }
-  showFilteredItems=(event)=>{
-    if(event!=null) {
-      let clickedCategory = event.target.innerHTML.trim().split(' ')[0];
+  showFilteredItems=(clickedCategory)=>{
+    if(clickedCategory!=null) {
         this.setState((prevState) => {
           if (this.allCategory.includes(clickedCategory) && !prevState.selectedCategory.includes((clickedCategory))) {
           prevState.selectedCategory.push(clickedCategory);
@@ -124,7 +123,7 @@ class App extends Component{
       });
     }
     this.setState((prevState)=>{
-          let filtedItems = {};
+          const filtedItems = {};
           for(let key in this.itemList) {
             if (this.itemList.hasOwnProperty(key)) {
               if ( (prevState.selectedCategory.length===0 || prevState.selectedCategory.includes(this.itemList[key].category) ) &&
@@ -142,13 +141,13 @@ class App extends Component{
   removeCategory=(event)=>{
     if(event.target.innerHTML.trim()!=='X')
       return ;
-    let elementTobeRemoved=event.target.closest('.filter-li');
+    const elementTobeRemoved=event.target.closest('.filter-li');
       if(elementTobeRemoved!=null) {
-        let filterNameTobeRemoved = elementTobeRemoved.getElementsByClassName('filter-name')[0].innerHTML;
+        const filterNameTobeRemoved = elementTobeRemoved.getElementsByClassName('filter-name')[0].innerHTML;
         this.setState((prevState) => {
           if (prevState.selectedCategory.includes(filterNameTobeRemoved)) {
-            let newSelectedCategory = prevState.selectedCategory;
-            let indexTobeRemoved = newSelectedCategory.indexOf(filterNameTobeRemoved)
+            const newSelectedCategory = prevState.selectedCategory;
+            const indexTobeRemoved = newSelectedCategory.indexOf(filterNameTobeRemoved)
             newSelectedCategory.splice(indexTobeRemoved, 1);
             return { selectedCategory: newSelectedCategory };
           }
@@ -156,16 +155,12 @@ class App extends Component{
       }
       this.showFilteredItems(null);
   };
-  addToCart=(event)=>{
-    if(event.target.className!=='addbutton'){
-      return;
-    }
-    let itemElement=event.target.closest('.item');
-    if(this.myLocalStorage.getItem(itemElement.id)!==null) {
+  addToCart=(productIdTobeAdded)=>{
+    if(this.myLocalStorage.getItem(productIdTobeAdded)!==null) {
       return ;
     }
-    let itemDetails=this.itemList[itemElement.id];
-    let itemTobeAdded={
+    const itemDetails=this.itemList[productIdTobeAdded];
+    const itemTobeAdded={
       productId: itemDetails.productID,
       brandName: itemDetails.brandName,
       productName: itemDetails.productName,
@@ -181,7 +176,7 @@ class App extends Component{
     if(event.target.className!=='search-input'){
       return ;
     }
-    let filteredText=event.target.value;
+    const filteredText=event.target.value;
     this.setState({searchBarText:filteredText});
     this.showFilteredItems(null);
   }

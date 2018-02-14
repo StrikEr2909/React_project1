@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class Filterbar extends Component{
   render(){
-    let selectedCategory=[];
+    const selectedCategory=[];
     this.props.selectedCategory.forEach((element)=>{
       selectedCategory.push(
         <li className="filter-li" key={element}>

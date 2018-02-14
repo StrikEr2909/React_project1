@@ -1,6 +1,28 @@
 import React, { Component } from 'react';
 import {Arrows} from './Common.js';
+const profileData=[
+  {
+    name:"My Profile",
+    className:"fa-address-card-o"
+  },
+  {
+    name:"Orders",
+    className:"fa-clipboard"
+  },
+  {
+    name:"Wishlist",
+    className:"fa-heart-o"
+  },
+  {
+    name:"Rewards",
+    className:"fa-credit-card"
+  },
+  {
+    name:"Notifications",
+    className:"fa-bell-o"
+  }
 
+];
 class Searchbar extends Component{
   render(){
     return (
@@ -17,29 +39,6 @@ class Searchbar extends Component{
 class ProfileContent extends Component{
   constructor(props){
     super(props);
-    let profileData=[
-      {
-        name:"My Profile",
-        className:"fa-address-card-o"
-      },
-      {
-        name:"Orders",
-        className:"fa-clipboard"
-      },
-      {
-        name:"Wishlist",
-        className:"fa-heart-o"
-      },
-      {
-        name:"Rewards",
-        className:"fa-credit-card"
-      },
-      {
-        name:"Notifications",
-        className:"fa-bell-o"
-      }
-
-    ]
     this.profileData=profileData;
   }
   render(){
